@@ -1,5 +1,4 @@
 import pygame
-import time
 import random as rd
 from grid import initialize_grid, draw_grid
 from robot import move_robot
