@@ -106,11 +106,11 @@ def main():
                     cleaning_finished = True  # Aucune autre position à explorer
             else:
                 # Sauvegarder la position et l'orientation actuelles
+                orientation = new_orientation
                 if not stack or (robot_x, robot_y) not in [(pos[0], pos[1]) for pos in stack]:
                     stack.append((robot_x, robot_y, orientation))
                 robot_x, robot_y = new_x, new_y
-                orientation = new_orientation
-
+                
         if cleaning_finished:
             text = font.render(f"Nettoyage terminé ! Cela a pris {compteur} étapes", True, RED)
             text_rect = text.get_rect(center=(WINDOW_WIDTH // 2, WINDOW_HEIGHT // 2))
