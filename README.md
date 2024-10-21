@@ -42,7 +42,7 @@ Ce projet vise à concevoir et mettre en œuvre un prototype de robot aspirateur
 - **Executer le projet :**
   
 ```bash
-   python main.py
+   python3 main.py
 ```
 
 
