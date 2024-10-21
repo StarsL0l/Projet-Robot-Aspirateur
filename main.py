@@ -1,6 +1,6 @@
 import sys
 import pygame
-from algorithms import random_algo, algo_suivi_murs  # Import des algorithmes
+from algorithms import random_algo, algo_balayage  # Import des algorithmes
 from config import SCREEN, WINDOW_WIDTH, WINDOW_HEIGHT, GREEN, WHITE, RED, CLOCK
 
 # Affichage du texte dans Pygame
@@ -22,7 +22,7 @@ def menu():
 
         # Dessiner les options de menu
         option1_rect = draw_text("1. Déplacement Aléatoire", font, GREEN if selected == 0 else WHITE, SCREEN, WINDOW_WIDTH // 2, WINDOW_HEIGHT // 3)
-        option2_rect = draw_text("2. Algorithme de Suivi des Murs", font, GREEN if selected == 1 else WHITE, SCREEN, WINDOW_WIDTH // 2, WINDOW_HEIGHT // 2)
+        option2_rect = draw_text("2. Algorithme de Balayage", font, GREEN if selected == 1 else WHITE, SCREEN, WINDOW_WIDTH // 2, WINDOW_HEIGHT // 2)
         option3_rect = draw_text("3. Quitter", font, GREEN if selected == 2 else WHITE, SCREEN, WINDOW_WIDTH // 2, 2 * WINDOW_HEIGHT // 3)
 
         pygame.display.update()
@@ -42,7 +42,7 @@ def menu():
                     if selected == 0:
                         random_algo.run(menu)  # Passer le menu pour revenir après
                     elif selected == 1:
-                        algo_suivi_murs.run(menu)  # Passer le menu pour revenir après
+                        algo_balayage.run(menu)  # Passer le menu pour revenir après
                     elif selected == 2:
                         pygame.quit()
                         sys.exit()
@@ -52,8 +52,8 @@ def menu():
                     pygame.display.set_caption("Déplacement Aléatoire")
                     random_algo.run(menu)  # Lancer algo aléatoire
                 elif option2_rect.collidepoint(event.pos):
-                    pygame.display.set_caption("Algorithme de Suivi des Murs")
-                    algo_suivi_murs.run(menu)  # Lancer suivi des murs
+                    pygame.display.set_caption("Algorithme de Balayage")
+                    algo_balayage.run(menu)  # Lancer algorithme de balayage
                 elif option3_rect.collidepoint(event.pos):
                     pygame.quit()
                     sys.exit()
