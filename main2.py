@@ -36,7 +36,7 @@ y = [k for k in range(0, WINDOW_HEIGHT, blockSize_y)]
 # Grille pour suivre l'état de nettoyage et les obstacles
 grid = [[Poussière for _ in range(BLOCKS_Y)] for _ in range(BLOCKS_X)]
 
-texture = False
+texture = True
 
 
 def initialize_grid():
@@ -47,7 +47,7 @@ def initialize_grid():
         grid[0][j] = grid[-1][j] = Mur  # Murs de gauche et de droite
     
     # Création d'obstacles aléatoires
-    num_obstacles = rd.randint(10, 15)  # Nombre d'obstacles entre 30 et 50
+    num_obstacles = rd.randint(10, 15)  # Nombre d'obstacles 
     for _ in range(num_obstacles):
         while True:
             x_alea = rd.randint(1, BLOCKS_X - 2)
@@ -61,7 +61,7 @@ def inverse_orientation(orientation):
     return (orientation + 180) % 360
 
 def main():
-    global SCREEN, CLOCK
+    global SCREEN, CLOCK, grid
     pygame.init()
     SCREEN = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
     CLOCK = pygame.time.Clock()
@@ -96,21 +96,9 @@ def main():
         if not cleaning_finished:
             # Déplacer le robot
             compteur += 1 
-            new_x, new_y, new_orientation = getNextPosition(robot_x, robot_y, orientation)
+            stack, grid, robot_x, robot_y, orientation, cleaning_finished = move(stack, grid, robot_x, robot_y, orientation, cleaning_finished)
 
-            if (new_x, new_y) == (robot_x, robot_y):  # Impasse détectée
-                if stack:  # Retour en arrière si nécessaire
-                    robot_x, robot_y, orientation = stack.pop()
-                    orientation = inverse_orientation(orientation)  # Inverser l'orientation
-                else:
-                    cleaning_finished = True  # Aucune autre position à explorer
-            else:
-                # Sauvegarder la position et l'orientation actuelles
-                orientation = new_orientation
-                if not stack or (robot_x, robot_y) not in [(pos[0], pos[1]) for pos in stack]:
-                    stack.append((robot_x, robot_y, orientation))
-                robot_x, robot_y = new_x, new_y
-                
+                                
         if cleaning_finished:
             text = font.render(f"Nettoyage terminé ! Cela a pris {compteur} étapes", True, RED)
             text_rect = text.get_rect(center=(WINDOW_WIDTH // 2, WINDOW_HEIGHT // 2))
@@ -172,6 +160,23 @@ def moveRobot(i, j, orientation):
         rect = pygame.Rect(x[i], y[j], blockSize_x, blockSize_y)
         pygame.draw.rect(SCREEN, BLUE, rect, 0)
 
+def move(stack, grid, robot_x, robot_y, orientation, cleaning_finished):
+    # Déplacer le robot
+    new_x, new_y, new_orientation = getNextPosition(robot_x, robot_y, orientation)
+
+    if (new_x, new_y) == (robot_x, robot_y):  # Impasse détectée
+        if stack:  # Retour en arrière si nécessaire
+            robot_x, robot_y, orientation = stack.pop()
+            orientation = inverse_orientation(orientation)  # Inverser l'orientation
+        else:
+            cleaning_finished = True  # Aucune autre position à explorer
+    else:
+        # Sauvegarder la position et l'orientation actuelles
+        orientation = new_orientation
+        if not stack or (robot_x, robot_y) not in [(pos[0], pos[1]) for pos in stack]:
+            stack.append((robot_x, robot_y, orientation))
+        robot_x, robot_y = new_x, new_y
+    return stack, grid, robot_x, robot_y, orientation, cleaning_finished
 
 
 def getNextPosition(i, j, orientation):
