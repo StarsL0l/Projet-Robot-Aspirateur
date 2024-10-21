@@ -47,6 +47,25 @@ def getNextPosition(i, j, orientation, grid):
     return i, j, orientation
 
 
+def move(stack, grid, robot_x, robot_y, orientation, cleaning_finished):
+    # Déplacer le robot
+    new_x, new_y, new_orientation = getNextPosition(robot_x, robot_y, orientation, grid)
+
+    if (new_x, new_y) == (robot_x, robot_y):  # Impasse détectée
+        if stack:  # Retour en arrière si nécessaire
+            robot_x, robot_y, orientation = stack.pop()
+            orientation = inverse_orientation(orientation)  # Inverser l'orientation
+        else:
+            cleaning_finished = True  # Aucune autre position à explorer
+    else:
+        # Sauvegarder la position et l'orientation actuelles
+        orientation = new_orientation
+        if not stack or (robot_x, robot_y) not in [(pos[0], pos[1]) for pos in stack]:
+            stack.append((robot_x, robot_y, orientation))
+        robot_x, robot_y = new_x, new_y
+    return stack, grid, robot_x, robot_y, orientation, cleaning_finished
+        
+
 def run(return_to_menu):
     # Initialisation de la grille
     grid = [[Poussière for _ in range(BLOCKS_Y)] for _ in range(BLOCKS_X)]
@@ -86,22 +105,9 @@ def run(return_to_menu):
                     texture_enabled = not texture_enabled
 
         if not cleaning_finished:
-            # Déplacer le robot
             compteur += 1 
-            new_x, new_y, new_orientation = getNextPosition(robot_x, robot_y, orientation, grid)
-
-            if (new_x, new_y) == (robot_x, robot_y):  # Impasse détectée
-                if stack:  # Retour en arrière si nécessaire
-                    robot_x, robot_y, orientation = stack.pop()
-                    orientation = inverse_orientation(orientation)  # Inverser l'orientation
-                else:
-                    cleaning_finished = True  # Aucune autre position à explorer
-            else:
-                # Sauvegarder la position et l'orientation actuelles
-                orientation = new_orientation
-                if not stack or (robot_x, robot_y) not in [(pos[0], pos[1]) for pos in stack]:
-                    stack.append((robot_x, robot_y, orientation))
-                robot_x, robot_y = new_x, new_y
+            # Déplacer le robot
+            stack, grid, robot_x, robot_y, orientation, cleaning_finished = move(stack, grid, robot_x, robot_y, orientation, cleaning_finished)
                 
 
         # Affichage du message de fin si nettoyage terminé
@@ -116,5 +122,5 @@ def run(return_to_menu):
         pygame.display.update()
 
         # Attendre un peu pour ralentir l'animation
-        time.sleep(0)
+        pygame.time.delay(100)
 
