@@ -10,8 +10,8 @@ Ce projet vise à concevoir et mettre en œuvre un prototype de robot aspirateur
 - `grid.py` : Gère la création et la manipulation de la grille de navigation.
 - `main.py` : Fichier pour exécuter les fonctions du robot avec une interface.
 - `robot.py` : Code source définissant le comportement et les actions du robot aspirateur.
-- `main2.py` : Fichier pour exécuter seulment la fonction de suivi de murs.
-- `algo_suivi_murs.py` : Algorithme de suivi de murs.
+- `main2.py` : Fichier pour exécuter seulment la fonction de balayage.
+- `algo_balayage.py` : Algorithme de balayage.
 - `random_algo.py` : Algorithme de déplacement aléatoire.
   
 ## Fonctionnalités
