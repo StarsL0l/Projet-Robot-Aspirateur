@@ -1,12 +1,8 @@
 import pygame
 
 # Taille des blocs et de la fenêtre
-SIZE = 50
-BLOCKS_X = 15  # Nombre de blocs en largeur
-BLOCKS_Y = 15  # Nombre de blocs en hauteur
-
-WINDOW_HEIGHT = BLOCKS_X * SIZE
-WINDOW_WIDTH = BLOCKS_Y * SIZE
+WINDOW_HEIGHT = WINDOW_WIDTH = 1000
+BLOCKS_X = BLOCKS_Y = 15  # Nombre de blocs 
 
 # Couleurs
 BLACK = (0, 0, 0)
@@ -26,10 +22,20 @@ Obstacle = 3
 pygame.init()
 SCREEN = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
 CLOCK = pygame.time.Clock()
+delay = 100 # en ms
 
 # Taille des blocs
 blockSize_x = WINDOW_WIDTH // BLOCKS_X
 blockSize_y = WINDOW_HEIGHT // BLOCKS_Y
+marge_x = WINDOW_WIDTH % BLOCKS_X
+marge_y = WINDOW_HEIGHT % BLOCKS_Y
+
+# Taille de la police
+taille_police = blockSize_x//2
+
+# Nombres d'obstacles
+obstacle_min = 15
+obstacle_max = 30
 
 # Coordonnées de la grille
 x = [k for k in range(0, WINDOW_WIDTH, blockSize_x)]

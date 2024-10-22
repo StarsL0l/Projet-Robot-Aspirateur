@@ -2,12 +2,12 @@ import pygame
 import random as rd
 from grid import initialize_grid, draw_grid
 from robot import move_robot
-from config import (BLOCKS_X, BLOCKS_Y, SCREEN, CLOCK, Poussière, texture, 
-                   WHITE, RED, GREEN, GRAY, WINDOW_WIDTH, WINDOW_HEIGHT)
+from config import *
+
 
 def draw_return_button():
-    font = pygame.font.SysFont(None, 30)
-    return_rect = pygame.Rect(10, 10, 130, 30)
+    font = pygame.font.SysFont(None, taille_police)
+    return_rect = pygame.Rect(10, 10, 2*blockSize_x - 20, blockSize_y - 20)
     pygame.draw.rect(SCREEN, WHITE, return_rect)
     text = font.render("Retour", True, RED)
     text_rect = text.get_rect(center=(return_rect.centerx, return_rect.centery))
@@ -15,8 +15,8 @@ def draw_return_button():
     return return_rect
 
 def draw_texture_button(texture_enabled):
-    font = pygame.font.SysFont(None, 30)
-    texture_rect = pygame.Rect(WINDOW_WIDTH - 150, WINDOW_HEIGHT - 40, 140, 35)
+    font = pygame.font.SysFont(None, taille_police)
+    texture_rect = pygame.Rect((WINDOW_WIDTH - 2*blockSize_x - marge_x) - 10, WINDOW_HEIGHT - blockSize_y + 10 - marge_y, 2*blockSize_x, blockSize_y - 20)
     pygame.draw.rect(SCREEN, WHITE, texture_rect)
     text = font.render("Texture: ON" if texture_enabled else "Texture: OFF", True, GREEN if texture_enabled else RED)
     text_rect = text.get_rect(center=(texture_rect.centerx, texture_rect.centery))
@@ -86,8 +86,8 @@ def run(return_to_menu):
     # Boucle principale
     while True:
         SCREEN.fill((150, 150, 150))  # Couleur de fond
-        draw_grid(grid, BLOCKS_X, BLOCKS_Y, texture_enabled)  # Utiliser texture_enabled au lieu de texture
-        move_robot(grid, robot_x, robot_y, orientation, texture_enabled)  # Même chose ici
+        draw_grid(grid, BLOCKS_X, BLOCKS_Y, texture_enabled)  
+        move_robot(grid, robot_x, robot_y, orientation, texture_enabled)  
 
         # Afficher les deux boutons
         return_button = draw_return_button()
@@ -105,7 +105,7 @@ def run(return_to_menu):
                     texture_enabled = not texture_enabled
 
         if not cleaning_finished:
-            compteur += 1 
+            compteur += 1
             # Déplacer le robot
             stack, grid, robot_x, robot_y, orientation, cleaning_finished = move(stack, grid, robot_x, robot_y, orientation, cleaning_finished)
                 
@@ -122,5 +122,5 @@ def run(return_to_menu):
         pygame.display.update()
 
         # Attendre un peu pour ralentir l'animation
-        pygame.time.delay(100)
+        pygame.time.delay(delay)
 

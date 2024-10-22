@@ -1,7 +1,7 @@
 import sys
 import pygame
-from algorithms import random_algo, algo_balayage  # Import des algorithmes
-from config import SCREEN, WINDOW_WIDTH, WINDOW_HEIGHT, GREEN, WHITE, RED, CLOCK
+from algorithms import algo_balayage, random_algo  # Import des algorithmes
+from config import *
 
 # Affichage du texte dans Pygame
 def draw_text(text, font, color, surface, x, y):
@@ -19,11 +19,15 @@ def menu():
 
     while True:
         SCREEN.fill((0, 0, 0))  # Fond noir
+        image = pygame.image.load("data/image_accueil.png")
+        image = pygame.transform.scale(image, (WINDOW_HEIGHT, WINDOW_WIDTH))
+        image.set_alpha(150)
+        SCREEN.blit(image, (0, 0))
 
         # Dessiner les options de menu
-        option1_rect = draw_text("1. Déplacement Aléatoire", font, GREEN if selected == 0 else WHITE, SCREEN, WINDOW_WIDTH // 2, WINDOW_HEIGHT // 3)
-        option2_rect = draw_text("2. Algorithme de Balayage", font, GREEN if selected == 1 else WHITE, SCREEN, WINDOW_WIDTH // 2, WINDOW_HEIGHT // 2)
-        option3_rect = draw_text("3. Quitter", font, GREEN if selected == 2 else WHITE, SCREEN, WINDOW_WIDTH // 2, 2 * WINDOW_HEIGHT // 3)
+        option1_rect = draw_text("Déplacement Aléatoire", font, GREEN if selected == 0 else WHITE, SCREEN, WINDOW_WIDTH // 2, WINDOW_HEIGHT // 3)
+        option2_rect = draw_text("Algorithme de Balayage", font, GREEN if selected == 1 else WHITE, SCREEN, WINDOW_WIDTH // 2, WINDOW_HEIGHT // 2)
+        option3_rect = draw_text("Quitter", font, GREEN if selected == 2 else WHITE, SCREEN, WINDOW_WIDTH // 2, 2 * WINDOW_HEIGHT // 3)
 
         pygame.display.update()
 
@@ -53,7 +57,7 @@ def menu():
                     random_algo.run(menu)  # Lancer algo aléatoire
                 elif option2_rect.collidepoint(event.pos):
                     pygame.display.set_caption("Algorithme de Balayage")
-                    algo_balayage.run(menu)  # Lancer algorithme de balayage
+                    algo_balayage.run(menu)  # Lancer balayage
                 elif option3_rect.collidepoint(event.pos):
                     pygame.quit()
                     sys.exit()
