@@ -2,7 +2,7 @@ import pygame
 
 # Taille des blocs et de la fenêtre
 WINDOW_HEIGHT = WINDOW_WIDTH = 1000
-BLOCKS_X = BLOCKS_Y = 15  # Nombre de blocs 
+BLOCKS_X = BLOCKS_Y = 18  # Nombre de blocs 
 
 # Couleurs
 BLACK = (0, 0, 0)
@@ -34,8 +34,8 @@ marge_y = WINDOW_HEIGHT % BLOCKS_Y
 taille_police = blockSize_x//2
 
 # Nombres d'obstacles
-obstacle_min = 15
-obstacle_max = 30
+obstacle_min = 5
+obstacle_max = 10
 
 # Coordonnées de la grille
 x = [k for k in range(0, WINDOW_WIDTH, blockSize_x)]
