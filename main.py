@@ -1,6 +1,6 @@
 import sys
 import pygame
-from algorithms import algo_balayage, random_algo  # Import des algorithmes
+from algorithms import algo_balayage, random_algo, moyenne_algo # Import des algorithmes
 from config import *
 
 # Affichage du texte dans Pygame
@@ -25,9 +25,10 @@ def menu():
         SCREEN.blit(image, (0, 0))
 
         # Dessiner les options de menu
-        option1_rect = draw_text("Déplacement Aléatoire", font, GREEN if selected == 0 else WHITE, SCREEN, WINDOW_WIDTH // 2, WINDOW_HEIGHT // 3)
-        option2_rect = draw_text("Algorithme de Balayage", font, GREEN if selected == 1 else WHITE, SCREEN, WINDOW_WIDTH // 2, WINDOW_HEIGHT // 2)
-        option3_rect = draw_text("Quitter", font, GREEN if selected == 2 else WHITE, SCREEN, WINDOW_WIDTH // 2, 2 * WINDOW_HEIGHT // 3)
+        option1_rect = draw_text("Déplacement Aléatoire", font, GREEN if selected == 0 else WHITE, SCREEN, WINDOW_WIDTH // 2, WINDOW_HEIGHT // 5)
+        option2_rect = draw_text("Algorithme de Balayage", font, GREEN if selected == 1 else WHITE, SCREEN, WINDOW_WIDTH // 2, 2 * WINDOW_HEIGHT // 5)
+        option3_rect = draw_text("Moyenne Aléatoire", font, GREEN if selected == 2 else WHITE, SCREEN, WINDOW_WIDTH // 2, 3 * WINDOW_HEIGHT // 5)
+        option4_rect = draw_text("Quitter", font, GREEN if selected == 3 else WHITE, SCREEN, WINDOW_WIDTH // 2, 4 * WINDOW_HEIGHT // 5)
 
         pygame.display.update()
 
@@ -39,15 +40,17 @@ def menu():
 
             if event.type == pygame.KEYDOWN:  # Navigation clavier
                 if event.key == pygame.K_DOWN:
-                    selected = (selected + 1) % 3
+                    selected = (selected + 1) % 4
                 elif event.key == pygame.K_UP:
-                    selected = (selected - 1) % 3
+                    selected = (selected - 1) % 4
                 elif event.key == pygame.K_RETURN:  # Sélection avec Entrée
                     if selected == 0:
                         random_algo.run(menu)  # Passer le menu pour revenir après
                     elif selected == 1:
                         algo_balayage.run(menu)  # Passer le menu pour revenir après
                     elif selected == 2:
+                        moyenne_algo.run(menu)  # Passer le menu pour revenir après
+                    elif selected == 3:
                         pygame.quit()
                         sys.exit()
 
@@ -59,6 +62,9 @@ def menu():
                     pygame.display.set_caption("Algorithme de Balayage")
                     algo_balayage.run(menu)  # Lancer balayage
                 elif option3_rect.collidepoint(event.pos):
+                    pygame.display.set_caption("Moyenne Aléatoire")
+                    moyenne_algo.run(menu)  # Lancer balayage
+                elif option4_rect.collidepoint(event.pos):
                     pygame.quit()
                     sys.exit()
 

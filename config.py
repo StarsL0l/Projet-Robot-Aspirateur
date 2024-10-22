@@ -22,7 +22,7 @@ Obstacle = 3
 pygame.init()
 SCREEN = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
 CLOCK = pygame.time.Clock()
-delay = 100 # en ms
+delay = 0 # en ms
 
 # Taille des blocs
 blockSize_x = WINDOW_WIDTH // BLOCKS_X
@@ -42,4 +42,5 @@ x = [k for k in range(0, WINDOW_WIDTH, blockSize_x)]
 y = [k for k in range(0, WINDOW_HEIGHT, blockSize_y)]
 
 # Texture activée ou non
-texture = True
+texture = False
+
