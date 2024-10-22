@@ -6,13 +6,16 @@ Ce projet vise à concevoir et mettre en œuvre un prototype de robot aspirateur
 
 ## Contenu du projet
 
-- `config.py` : Contient les configurations et paramètres nécessaires pour le fonctionnement du robot.
+- `config.py` : Contient les configurations et paramètres nécessaires au le fonctionnement du robot.
 - `grid.py` : Gère la création et la manipulation de la grille de navigation.
 - `main.py` : Fichier pour exécuter les fonctions du robot avec une interface.
 - `robot.py` : Code source définissant le comportement et les actions du robot aspirateur.
-- `main2.py` : Fichier pour exécuter seulment la fonction de balayage.
+- `main2.py` : Fichier pour exécuter uniquement la fonction de balayage.
 - `algo_balayage.py` : Algorithme de balayage.
 - `random_algo.py` : Algorithme de déplacement aléatoire.
+- `moyenne_algo.py` : Programme qui permet de calculer le nombre moyen d'étapes que le robot doit faire dans une même pièce, en simulant plusieurs fois `random_algo.py` (l'utilisateur entre le nombre voulu).
+
+
   
 ## Fonctionnalités
 
@@ -39,7 +42,7 @@ Ce projet vise à concevoir et mettre en œuvre un prototype de robot aspirateur
 ```
 ## Utilisation
 
-- **Executer le projet :**
+- **Exécuter le projet :**
   
 ```bash
    python3 main.py
