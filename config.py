@@ -2,7 +2,7 @@ import pygame
 
 # Taille des blocs et de la fenêtre
 WINDOW_HEIGHT = WINDOW_WIDTH = 1000
-BLOCKS_X = BLOCKS_Y = 18  # Nombre de blocs 
+BLOCKS_X = BLOCKS_Y = 15  # Nombre de blocs 
 
 # Couleurs
 BLACK = (0, 0, 0)
