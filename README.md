@@ -45,6 +45,11 @@ Ce projet vise à concevoir et mettre en œuvre un prototype de robot aspirateur
    python3 main.py
 ```
 
+## Crédit
+- LESIEUX Thomas
+- BRIAUT Lilian
+- BARTCZAK Antoine
+
 
 
 
